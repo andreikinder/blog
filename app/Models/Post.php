@@ -11,6 +11,8 @@ class Post extends Model
 
     protected $guarded =  ['id'];
     protected $fillable = ['title', 'exerpt', 'body', 'category_id', 'slug'];
+
+    protected $with = ['category', 'author'];
 //
 //    public function getRouteKeyName()
 //    {
@@ -23,7 +25,7 @@ class Post extends Model
         return  $this->belongsTo(Category::class);
     }
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function author(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
