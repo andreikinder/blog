@@ -18,46 +18,40 @@ use Illuminate\Support\Facades;
 |
 */
 
+use App\Http\Controllers\PostController;
+
+use App\Http\Controllers\RegisterController;
+
+use App\Http\Controllers\SessionController;
 
 
 
-Route::get('/', function () {
+
+Route::get('/', [PostController::class, 'index'])->name('home');
+
+Route::get('/posts/{post:slug}',  [PostController::class, 'show']);//->where('post','[A-z_\-]+');
+
+Route::get('/register', [RegisterController ::class, 'create'])->name('register')->middleware('guest');
+Route::post('/register', [RegisterController ::class, 'store'])->name('register')->middleware('guest');
 
 
-    return view('posts',[
-        'posts' => Post::latest()->with(['category','author'])->get(),
-        'categories' => Category::all()
-    ]);
+Route::get('/login', [SessionController::class, 'create'])->middleware('guest');
+Route::post('/login', [SessionController::class, 'store'])->middleware('guest');
+Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth');
 
-    //$tmp = YamlFrontMatter::parse(resource_path("posts/my-fourth-post.html"));
-
+//Route::get('/categories/{category:slug}', function (Category $category) {
+//
 //    return view('posts',[
-//        'posts' => Post::all()
+//        'posts' => $category->posts,
+//        'categories' => Category::all(),
+//        'currentCategory' => $category,
 //    ]);
-});
-
-Route::get('/posts/{post:slug}', function (Post $post) {
-
-    return view('post', [
-        'post' =>   $post
-    ]);
-
-});//->where('post','[A-z_\-]+');
+//})->name('category');//->where('post','[A-z_\-]+');
 
 
-Route::get('/categories/{category:slug}', function (Category $category) {
-
-    return view('posts',[
-        'posts' => $category->posts,
-        'categories' => Category::all(),
-        'currentCategory' => $category,
-    ]);
-});//->where('post','[A-z_\-]+');
-
-
-Route::get('/authors/{author:username}', function (User $author) {
-
-    return view('posts',[
-        'posts' => $author->posts,
-    ]);
-});//->where('post','[A-z_\-]+');
+//Route::get('/authors/{author:username}', function (User $author) {
+//
+//    return view('posts.index',[
+//        'posts' => $author->posts,
+//    ]);
+//});//->where('post','[A-z_\-]+');

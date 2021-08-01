@@ -11,7 +11,11 @@
                 <div class="flex items-center lg:justify-center text-sm mt-4">
                     <img src="/images/lary-avatar.svg" alt="Lary avatar">
                     <div class="ml-3 text-left">
-                        <h5 class="font-bold">{{$post->author->name}}</h5>
+                        <div class="ml-3">
+                            <h5 class="font-bold">
+                                <a href="/?author={{$post->author->username}}"> {{$post->author->name}}</a>
+                            </h5>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,14 +47,14 @@
                     {!! $post->body !!}
 
                 </div>
+
+                <section class="col-span-8 col-start-5 mt-10 space-y-6">
+                    <x-post-comment />
+                    <x-post-comment />
+                    <x-post-comment />
+                    <x-post-comment />
+                </section>
             </div>
         </article>
     </main>
-    <h1>{{$post->title}}</h1>
-    <p><small>{{$post->date}}</small></p>
-    <p>Category is <a href="/categories/{{$post->category->slug}}">{{$post->category->name}}</a></p>
-
-    <p>By author <a href="/authors/{{$post->author->username}}">{{$post->author->name}}</a></p>
-
-    {!! $post->body !!}
 </x-layout>
