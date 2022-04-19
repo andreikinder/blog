@@ -7,6 +7,7 @@ use App\Models\Category;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -42,5 +43,24 @@ class PostController extends Controller
 
     public function create(){
         return view('posts.create');
+    }
+
+    public function store(Request $request){
+
+        $attributes = $request->validate([
+            'title' => 'required',
+            'excerpt' => 'required',
+            'body' => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+            'slug' => ['required', Rule::unique('posts', 'slug')],
+        ]);
+
+        $attributes['user_id'] = auth()->id();
+
+        Post::create($attributes);
+
+        return redirect('/');
+
+
     }
 }
