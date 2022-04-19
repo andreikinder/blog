@@ -2,7 +2,8 @@
 
     <section class="px-6 py-8 ">
         <x-panel class="max-w-sm mx-auto">
-            <form action="/admin/posts/" method="POST">
+            <h1 class="text-lg font-bold mb-4">Publish post</h1>
+            <form action="/admin/posts/" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="my-3">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="title">
@@ -34,6 +35,23 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                 </div>
+
+
+                <div class="my-3">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="thumbnail">
+                        Thumbnail
+                    </label>
+                    <input class="border border-gray-400 p-2 w-full focus:outline-none focus:ring"
+                           name="thumbnail"
+                           id="thumbnail"
+                           type="file"
+                           value="{{@old('thumbnail')}}"
+                           required >
+                    @error('thumbnail')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+                </div>
+
                 <div class="my-3">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="excerpt">
                         Excerpt:
