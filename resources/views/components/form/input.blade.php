@@ -5,8 +5,7 @@
            name="{{$name}}"
            id="{{$name}}"
 
-           value="{{@old($name)}}"
-           {{ $attributes }}
-           required >
+           {{ $attributes(['value' => old($name)]) }}
+            >
     <x-form.erorr name="{{$name}}" />
 </x-form.field>

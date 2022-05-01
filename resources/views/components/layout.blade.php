@@ -24,17 +24,21 @@
         </div>
 
         <div class="mt-8 md:mt-0 flex items-center">
+
             @auth
                 <x-dropdown>
                     <x-slot name="trigger">
                         <button  class="text-xs font-bold uppercase w-24 min-w-full">Hello {{auth()->user()->name}}</button>
                     </x-slot>
-                    <x-dropdown-item href="/admin/posts/dashboard">
+
+                    @admin
+                    <x-dropdown-item href="/admin/posts">
                         Dashboard
                     </x-dropdown-item>
                     <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">
                         New Post
                     </x-dropdown-item>
+                    @endadmin
 
                     <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">
                         Log out

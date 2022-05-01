@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,8 +48,11 @@ Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth'
 Route::post('/newsletter', NewsletterController::class);
 
 
-Route::get('/admin/posts/create',[PostController::class, 'create'])->middleware('admin');
-Route::post('/admin/posts',[PostController::class, 'store'])->middleware('admin');
+
+Route::middleware('can:admin')->group(function (){
+    Route::resource('/admin/posts', AdminPostController::class)->except('show');
+});
+
 
 
 

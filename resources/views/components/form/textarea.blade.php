@@ -5,7 +5,7 @@
               name="{{$name}}"
               id="{{$name}}"
 
-              rows="7"  class=" border border-gray-200 rounded w-full text-sm focus:outline-none focus:ring" >{{@old($name)}}</textarea>
+              rows="7"  class=" border border-gray-200 rounded w-full text-sm focus:outline-none focus:ring" >{{$slot ?? old($name)}}</textarea>
     <x-form.erorr name="{{$name}}" />
 </x-form.field>
 
